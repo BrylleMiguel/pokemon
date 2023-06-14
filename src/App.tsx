@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { useQuery } from '@tanstack/react-query'
 import React from 'react'
+import { Text } from '@chakra-ui/layout'
 
 function App() {
 	const ENDPOINT: string = 'https://pokeapi.co/api/v2/pokemon?limit=10'
@@ -22,8 +23,8 @@ function App() {
 
 	return (
 		<div>{data?.map((pokemon: any) => {
-			return <h1 className='text-3xl font-bold underline' key={pokemon.id}>
-				{pokemon.name}</h1>
+			return <Text fontSize='xs' key={pokemon.id}>
+				{pokemon.name}</Text>
 		})}</div>
 	)
 }
