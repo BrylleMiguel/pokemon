@@ -3,7 +3,6 @@ import { Button } from '@chakra-ui/button'
 import { MdDonutLarge } from 'react-icons/md'
 import { SiElement } from 'react-icons/si'
 import { Box, Center, Container, Flex, HStack, Heading, Icon, Modal, ModalBody, ModalContent, Popover, PopoverBody, PopoverContent, PopoverTrigger, Spacer, Tooltip, useDisclosure } from '@chakra-ui/react'
-import HoverIconButton from './components/icon/HoverIconButton'
 import PokemonDetails from './components/pokemon/PokemonDetails'
 import { fetchPokemons } from './api/apis'
 
@@ -14,6 +13,8 @@ function App() {
 		queryFn: fetchPokemons,
 		getNextPageParam: (lastPage, pages) => lastPage.offset + 10
 	})
+
+	console.log(pokemons?.pages.fetchedPokemons)
 
 	return (
 		<Container bg='red.100' maxW='3xl'>
