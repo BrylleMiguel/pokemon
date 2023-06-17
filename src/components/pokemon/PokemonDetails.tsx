@@ -1,9 +1,8 @@
 import { Text, Box } from "@chakra-ui/react"
-import ReactApexChart from "react-apexcharts"
 import { MdDonutLarge } from "react-icons/md"
 import HoverIconButton from "../icon/HoverIconButton"
 import { SiElement } from "react-icons/si"
-import { chart } from "../../utility/chart"
+import GenericChart from "../chart/GenericChart"
 
 export default function PokemonDetails({ fetchedPokemons }: { fetchedPokemons: any }) {
     return fetchedPokemons.map((pokemon: any) => {
@@ -19,7 +18,7 @@ export default function PokemonDetails({ fetchedPokemons }: { fetchedPokemons: a
                 <Text>
                     {pokemon.name}
                 </Text>
-                <ReactApexChart type='donut' options={chart} labels={label_names} series={base_stat} width={400} />
+                <GenericChart labels={label_names} series={base_stat} type='donut' />
             </Box>
         </div>
     })
