@@ -1,6 +1,6 @@
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { Button } from '@chakra-ui/button'
-import { Box, Container, } from '@chakra-ui/react'
+import { Box, Container, Flex, SimpleGrid, } from '@chakra-ui/react'
 import PokemonDetails from './components/pokemon/PokemonDetails'
 import { fetchPokemons } from './api/apis'
 
@@ -12,14 +12,17 @@ function App() {
 		getNextPageParam: (lastPage, pages) => lastPage.offset + 10
 	})
 
+	console.log(pokemons)
+
 	return (
-		<Container bg='red.100' maxW='3xl'>
-			<Box>
+		<Container maxW='3xl'>
+			<SimpleGrid columns={4} spacing={1}>
 				{pokemons?.pages.map((pokemon: any, index) => {
 					const { fetchedPokemons } = pokemon
-					return <PokemonDetails fetchedPokemons={fetchedPokemons} key={index} />
+					return (<PokemonDetails fetchedPokemons={fetchedPokemons} key={index} />
+					)
 				})}
-			</Box>
+			</SimpleGrid>
 			<Button disabled={pokemons?.pages[pokemons?.pages.length - 1].offset === MAX_OFFSET}
 				onClick={() => fetchNextPage()}
 			>
