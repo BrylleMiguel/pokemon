@@ -1,15 +1,11 @@
 import { Text, Box, Image, Center, Flex } from "@chakra-ui/react"
 import GenericChart from "../chart/GenericChart"
 import PokemonTypeIcon from "../icon/PokemonTypeIcon"
-import { BsFire } from 'react-icons/bs'
-import { capitalize, map, words, upperFirst } from "lodash"
+import { map, words, upperFirst } from "lodash"
 
 export default function PokemonDetails({ fetchedPokemons }: { fetchedPokemons: any }) {
     return fetchedPokemons.map((pokemon: any) => {
-        const { id, name, sprites: { front_default }, stats, types, } = pokemon
-
-        const base_stat = stats.map((stat: any) => stat.base_stat)
-        const label_names = stats.map((stat: any) => stat.stat.name)
+        const { id, name, sprites: { front_default }, types, } = pokemon
 
         const pokemonTypes = types.map((i: any) => i.type.name)
         const formattedName = map(words(name), (word) => upperFirst(word)).join(' ');
