@@ -17,7 +17,6 @@ function App() {
 		getNextPageParam: (lastPage, pages) => lastPage.offset + 100
 	})
 
-
 	return (
 		<Container maxW='6xl'>
 			<Heading>Browse Pokemons</Heading>
