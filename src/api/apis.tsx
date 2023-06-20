@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export async function fetchPokemons({ pageParam: offset = 0 }) {
-	const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/?offset=${offset}&limit=100`);
+	const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/?offset=${offset}&limit=200`);
 	const data = await response.data;
 
 	return {

@@ -1,16 +1,16 @@
 import { Text, Box, Image, Center, Flex } from "@chakra-ui/react"
 import GenericChart from "../chart/GenericChart"
 import PokemonTypeIcon from "../icon/PokemonTypeIcon"
-import { map, words, upperFirst } from "lodash"
+import { map, words, upperFirst, truncate } from "lodash"
 
 export default function PokemonDetails({ fetchedPokemons }: { fetchedPokemons: any }) {
     return fetchedPokemons.map((pokemon: any) => {
         const { id, name, sprites: { front_default }, types, } = pokemon
 
         const pokemonTypes = types.map((i: any) => i.type.name)
-        const formattedName = map(words(name), (word) => upperFirst(word)).join(' ');
-        return <Center filter="grayscale(100%)" _hover={{ transform: "scale(1.1)", filter: "grayscale(0%)" }}
-            transition="transform 0.1s ease-out" >
+        const formattedName = truncate(map(words(name), (word) => upperFirst(word)).join(' '), { length: 14 });
+        return <Center key={pokemon.id} filter="grayscale(100%)" _hover={{ transform: "scale(1.1)", filter: "grayscale(0%)" }}
+            transition="transform 0.1s ease-out" zIndex="0" >
             <Box key={id} boxShadow='xl' p='3' cursor="pointer" minWidth={150}>
                 <Center>
                     <Image src={front_default} alt={`${pokemon.name} avatar`} boxSize='100px' objectFit='contain'
