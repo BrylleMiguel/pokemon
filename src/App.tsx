@@ -11,28 +11,27 @@ function App() {
 
 	const [searchPokemon, setSearchPokemon] = useState("")
 
-	const { data: pokemons, fetchNextPage, isFetchingNextPage } = useInfiniteQuery({
+	const { data: pokemons, fetchNextPage, isFetchingNextPage, refetch } = useInfiniteQuery({
 		queryKey: ['pokemons'],
-		queryFn: fetchPokemons,
-		getNextPageParam: (lastPage, pages) => lastPage.offset + 100
+		queryFn: ({ pageParam = 0 }) => fetchPokemons(searchPokemon, pageParam),
+		getNextPageParam: (lastPage, pages) => lastPage.pageParam + 100
 	})
 
 	return (
 		<Container maxW='6xl'>
 			<Heading>Browse Pokemons</Heading>
-			<SearchPokemon searchPokemon={searchPokemon} setSearchPokemon={setSearchPokemon} />
+			<SearchPokemon searchPokemon={searchPokemon} setSearchPokemon={setSearchPokemon} refetch={refetch} />
 			<SimpleGrid columns={7}>
-				{pokemons?.pages.map((pokemon: any, index) => {
-					const { fetchedPokemons } = pokemon
-					return (<PokemonDetails fetchedPokemons={fetchedPokemons} key={index} />
+				{pokemons?.pages?.map((pokemon: any, index: any) => {
+					return (<PokemonDetails pokemon={pokemon} key={index} />
 					)
 				})}
 				<Center>
-					<Button disabled={pokemons?.pages[pokemons?.pages.length - 1].offset === MAX_OFFSET}
+					<Button disabled={pokemons?.pages[pokemons?.pages.length - 1].pageParam === MAX_OFFSET}
 						onClick={() => { fetchNextPage() }}	 >
 						{isFetchingNextPage
 							? 'Loading more...'
-							: pokemons?.pages[pokemons?.pages.length - 1].offset === MAX_OFFSET
+							: pokemons?.pages[pokemons?.pages.length - 1].pageParam === MAX_OFFSET
 								? 'Nothing more to load'
 								: 'Load More'
 						}

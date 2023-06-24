@@ -3,17 +3,17 @@ import GenericChart from "../chart/GenericChart"
 import PokemonTypeIcon from "../icon/PokemonTypeIcon"
 import { map, words, upperFirst, truncate } from "lodash"
 
-export default function PokemonDetails({ fetchedPokemons }: { fetchedPokemons: any }) {
-    return fetchedPokemons.map((pokemon: any) => {
-        const { id, name, sprites: { front_default }, types, } = pokemon
+export default function PokemonDetails({ pokemon }: { pokemon: any }) {
+    return pokemon.fetchedPokemons?.map((data: any) => {
+        const { id, name, sprites: { front_default }, types, } = data || {}
 
         const pokemonTypes = types.map((i: any) => i.type.name)
         const formattedName = truncate(map(words(name), (word) => upperFirst(word)).join(' '), { length: 14 });
-        return <Center key={pokemon.id} filter="grayscale(100%)" _hover={{ transform: "scale(1.1)", filter: "grayscale(0%)" }}
+        return <Center key={id} filter="grayscale(100%)" _hover={{ transform: "scale(1.1)", filter: "grayscale(0%)" }}
             transition="transform 0.1s ease-out" zIndex="0" >
             <Box key={id} boxShadow='xl' p='3' cursor="pointer" minWidth={150}>
                 <Center>
-                    <Image src={front_default} alt={`${pokemon.name} avatar`} boxSize='100px' objectFit='contain'
+                    <Image src={front_default} alt={`${name} avatar`} boxSize='100px' objectFit='contain'
                     />
                 </Center>
                 <Flex justifyContent='space-between'>
