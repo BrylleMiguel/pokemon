@@ -1,17 +1,18 @@
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { Button } from '@chakra-ui/button'
-import { Box, Center, Container, Flex, Heading, SimpleGrid, } from '@chakra-ui/react'
+import { Center, Container, Heading, SimpleGrid } from '@chakra-ui/react'
 import PokemonDetails from './components/pokemon/PokemonDetails'
 import { fetchPokemons } from './api/apis'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import SearchPokemon from './components/pokemon/SearchPokemon'
 
 function App() {
 	const MAX_OFFSET = 1280
 
 	const [searchPokemon, setSearchPokemon] = useState("")
+	console.log(searchPokemon)
 
-	const { data: pokemons, fetchNextPage, isFetchingNextPage, refetch } = useInfiniteQuery({
+	const { data: pokemons, fetchNextPage, isFetchingNextPage, isFetching, refetch } = useInfiniteQuery({
 		queryKey: ['pokemons'],
 		queryFn: ({ pageParam = 0 }) => fetchPokemons(searchPokemon, pageParam),
 		getNextPageParam: (lastPage, pages) => lastPage.pageParam + 100
@@ -23,7 +24,8 @@ function App() {
 			<SearchPokemon searchPokemon={searchPokemon} setSearchPokemon={setSearchPokemon} refetch={refetch} />
 			<SimpleGrid columns={7}>
 				{pokemons?.pages?.map((pokemon: any, index: any) => {
-					return (<PokemonDetails pokemon={pokemon} key={index} />
+					return (
+						<PokemonDetails pokemon={pokemon} key={index} />
 					)
 				})}
 				<Center>
