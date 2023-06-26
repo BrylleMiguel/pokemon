@@ -4,6 +4,16 @@ import PokemonTypeIcon from "../icon/PokemonTypeIcon"
 import { map, words, upperFirst, truncate } from "lodash"
 
 export default function PokemonDetails({ pokemon }: { pokemon: any }) {
+
+    if (pokemon.fetchedPokemons.length === 0) {
+        return <Center>
+
+            <h1>pokemon/s not found...</h1>
+
+            <h1>try to fetch more pokemon!</h1>
+        </Center>
+    }
+
     return pokemon.fetchedPokemons?.map((data: any) => {
         const { id, name, sprites: { front_default }, types, } = data || {}
 
